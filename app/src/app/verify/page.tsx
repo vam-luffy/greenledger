@@ -51,6 +51,7 @@ export default function VerifyPage() {
   }, [connection, publicKey]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial on-chain fetch
     refresh().catch((e) => setError(String(e)));
   }, [refresh]);
 

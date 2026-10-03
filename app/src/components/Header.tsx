@@ -25,6 +25,8 @@ export function Header() {
         <nav className="flex items-center gap-4 text-sm">
           <Link href="/supplier" className="hover:underline">Supplier</Link>
           <Link href="/verify" className="hover:underline">Verifier</Link>
+          <Link href="/buyer" className="hover:underline">Buyer</Link>
+          <Link href="/verifiers" className="hidden hover:underline sm:inline">Verifiers</Link>
           <Link href="/lookup" className="hover:underline">Lookup</Link>
           <WalletMultiButton />
         </nav>

@@ -75,6 +75,7 @@ function LookupInner() {
 
   useEffect(() => {
     const q = params.get("q");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial on-chain fetch
     if (q) search(q);
   }, [params, search]);
 
@@ -116,6 +117,7 @@ function LookupInner() {
               <Stat label="Verified" value={supplier.verifiedCount.toString()} />
             </dl>
             <p className="mt-3 text-xs text-zinc-500">
+              <a className="mr-3 underline" href={`/s/${supplier.address.toBase58()}`}>Open public page</a>
               On-chain record:{" "}
               <a className="font-mono underline" href={explorerUrl(supplier.address.toBase58())} target="_blank" rel="noreferrer">
                 {supplier.address.toBase58()}

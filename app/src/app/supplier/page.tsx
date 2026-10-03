@@ -57,6 +57,7 @@ export default function SupplierPage() {
   }, [connection, publicKey]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial on-chain fetch
     refresh().catch((e) => setError(String(e)));
   }, [refresh]);
 
@@ -163,6 +164,7 @@ export default function SupplierPage() {
                 <Stat label="Verified" value={supplier.verifiedCount.toString()} />
               </dl>
               <p className="mt-3 text-xs text-zinc-500">
+                <a className="mr-3 underline" href={`/s/${pda.supplier(publicKey).toBase58()}`}>Open your public page</a>
                 Public lookup address:{" "}
                 <a className="font-mono underline" href={explorerUrl(pda.supplier(publicKey).toBase58())} target="_blank" rel="noreferrer">
                   {pda.supplier(publicKey).toBase58()}
