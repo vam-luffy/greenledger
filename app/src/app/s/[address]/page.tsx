@@ -6,10 +6,10 @@ import { PublicKey } from "@solana/web3.js";
 import { QRCodeSVG } from "qrcode.react";
 import { Header } from "@/components/Header";
 import { ClaimTable, type ClaimRow } from "@/components/ClaimTable";
-import { Card, Notice, Stat } from "@/components/ui";
+import { Card, Notice, Stat, inputCls } from "@/components/ui";
 import { fetchClaims, fetchSupplier, summarize, type SupplierRecord } from "@/lib/fetch";
 import { claimsToCsv, downloadText } from "@/lib/csv";
-import { explorerUrl, formatDate } from "@/lib/program";
+import { explorerUrl, formatDate, hexOf, kindLabel, sha256File, statusKey } from "@/lib/program";
 
 export default function PublicSupplierPage({ params }: { params: Promise<{ address: string }> }) {
   const { address } = use(params);
@@ -18,6 +18,7 @@ export default function PublicSupplierPage({ params }: { params: Promise<{ addre
   const [claims, setClaims] = useState<ClaimRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [docCheck, setDocCheck] = useState<{ name: string; hash: string; match: ClaimRow | null } | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -100,6 +101,41 @@ export default function PublicSupplierPage({ params }: { params: Promise<{ addre
                 <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-sm text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-100">
                   <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
                   {summary.verified} claim{summary.verified === 1 ? "" : "s"} verified on-chain, last on {formatDate(summary.lastVerified)}
+                </div>
+              )}
+            </Card>
+
+            <Card title="Check a document">
+              <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
+                Been sent an invoice or certificate by this supplier? Drop it here. It is hashed in your browser and
+                compared with every claim on this page. Nothing is uploaded.
+              </p>
+              <input
+                type="file"
+                className={inputCls}
+                onChange={async (e) => {
+                  const f = e.target.files?.[0];
+                  if (!f) return;
+                  const h = hexOf(await sha256File(f));
+                  const hit = claims.find((c) => hexOf(c.evidenceHash) === h);
+                  setDocCheck({ name: f.name, hash: h, match: hit ?? null });
+                }}
+              />
+              {docCheck && (
+                <div className="mt-3">
+                  {docCheck.match ? (
+                    <Notice tone="ok">
+                      <strong>{docCheck.name}</strong> is the evidence behind claim #{docCheck.match.index.toString()} (
+                      {kindLabel(docCheck.match.kind)}), status{" "}
+                      <strong className="capitalize">{statusKey(docCheck.match.status)}</strong>.
+                    </Notice>
+                  ) : (
+                    <Notice tone="err">
+                      <strong>{docCheck.name}</strong> does not match any claim on this record. Its hash is{" "}
+                      <span className="font-mono text-xs">{docCheck.hash.slice(0, 16)}…</span>. Either the document was
+                      altered or it was never submitted for verification.
+                    </Notice>
+                  )}
                 </div>
               )}
             </Card>
