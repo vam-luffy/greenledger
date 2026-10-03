@@ -11,7 +11,7 @@
 
 use anchor_lang::prelude::*;
 
-declare_id!("GLedger1111111111111111111111111111111111111");
+declare_id!("Hd8P3F7NAnFA6KtYnWZzcfF6LSUMAN6khGXP7Z9kELaB");
 
 pub const MAX_NAME: usize = 64;
 pub const MAX_GSTIN: usize = 15;
