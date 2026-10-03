@@ -68,3 +68,19 @@ export function StatusBadge({ status }: { status: "pending" | "verified" | "reje
     <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${cls}`}>{status}</span>
   );
 }
+
+export function TxNotice({ message, sig }: { message: string; sig: string }) {
+  return (
+    <Notice tone="ok">
+      {message}{" "}
+      <a
+        className="font-mono underline"
+        href={`https://explorer.solana.com/tx/${sig}?cluster=devnet`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {sig.slice(0, 8)}…{sig.slice(-8)}
+      </a>
+    </Notice>
+  );
+}

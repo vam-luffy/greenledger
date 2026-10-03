@@ -24,6 +24,17 @@ Accounts are program-derived addresses:
 - `["verifier", verifier_authority]`
 - `["claim", supplier, index_le_u64]`
 
+## Pages
+
+| Route | Who | What |
+|---|---|---|
+| `/supplier` | Supplier (wallet) | Register with GSTIN, record claims with hashed evidence, see own claims |
+| `/verify` | Verifier (wallet) | Queue of pending claims across all suppliers, approve or reject with a note |
+| `/buyer` | Procurement team | Watchlist of suppliers, compliance summary, BRSR CSV export of every claim |
+| `/s/[address]` | Anyone | Public supplier record with QR code, share link, attestation summary, CSV export |
+| `/verifiers` | Anyone | Registry of accredited verifiers and their attestation counts |
+| `/lookup` | Anyone | Find a supplier by wallet, record address, or GSTIN |
+
 ## Layout
 
 - `programs/greenledger` - Anchor program (Rust)

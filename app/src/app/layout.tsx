@@ -14,9 +14,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GreenLedger",
+  title: {
+    default: "GreenLedger",
+    template: "%s · GreenLedger",
+  },
   description:
     "Verifiable ESG and carbon attestations for Indian MSMEs, anchored on Solana.",
+  icons: { icon: "/logo.svg" },
+  openGraph: {
+    title: "GreenLedger",
+    description:
+      "Record an ESG claim once, get it attested by an accredited verifier, share one link every buyer can trust.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -5,7 +5,7 @@ import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapte
 import { BN } from "@coral-xyz/anchor";
 import { Header } from "@/components/Header";
 import { ClaimTable, type ClaimRow } from "@/components/ClaimTable";
-import { Button, Card, Field, Notice, Stat, inputCls } from "@/components/ui";
+import { Button, Card, Field, Notice, Stat, TxNotice, inputCls } from "@/components/ui";
 import {
   CLAIM_KINDS,
   SCALE,
@@ -33,7 +33,7 @@ export default function SupplierPage() {
   const [supplier, setSupplier] = useState<SupplierAccount | null>(null);
   const [claims, setClaims] = useState<ClaimRow[]>([]);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<{ message: string; sig: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -77,7 +77,7 @@ export default function SupplierPage() {
         )
         .accounts({ owner: wallet.publicKey })
         .rpc();
-      setStatus(`Registered. Tx ${sig}`);
+      setStatus({ message: "Registered on-chain.", sig });
       await refresh();
     } catch (err) {
       setError(String(err));
@@ -116,7 +116,7 @@ export default function SupplierPage() {
         )
         .accounts({ owner: wallet.publicKey })
         .rpc();
-      setStatus(`Claim submitted. Tx ${sig}`);
+      setStatus({ message: "Claim submitted.", sig });
       form.reset();
       await refresh();
     } catch (err) {
@@ -207,7 +207,7 @@ export default function SupplierPage() {
           </>
         )}
 
-        {status && <Notice tone="ok">{status}</Notice>}
+        {status && <TxNotice message={status.message} sig={status.sig} />}
         {error && <Notice tone="err">{error}</Notice>}
       </main>
     </>

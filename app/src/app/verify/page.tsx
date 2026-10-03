@@ -5,7 +5,7 @@ import { useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapte
 import { PublicKey } from "@solana/web3.js";
 import { Header } from "@/components/Header";
 import { ClaimTable, type ClaimRow } from "@/components/ClaimTable";
-import { Card, Notice, Stat } from "@/components/ui";
+import { Card, Notice, Stat, TxNotice } from "@/components/ui";
 import { getProgram, getReadonlyProgram, pda, statusKey } from "@/lib/program";
 
 type VerifierAccount = {
@@ -24,7 +24,7 @@ export default function VerifyPage() {
   const [pending, setPending] = useState<ClaimRow[]>([]);
   const [supplierNames, setSupplierNames] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState<string | null>(null);
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<{ message: string; sig: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -70,7 +70,7 @@ export default function VerifyPage() {
           verifierAuthority: wallet.publicKey,
         })
         .rpc();
-      setStatus(`${approve ? "Approved" : "Rejected"} claim #${claim.index.toString()}. Tx ${sig}`);
+      setStatus({ message: `${approve ? "Approved" : "Rejected"} claim #${claim.index.toString()}.`, sig });
       await refresh();
     } catch (e) {
       setError(String(e));
@@ -138,7 +138,7 @@ export default function VerifyPage() {
           />
         </Card>
 
-        {status && <Notice tone="ok">{status}</Notice>}
+        {status && <TxNotice message={status.message} sig={status.sig} />}
         {error && <Notice tone="err">{error}</Notice>}
       </main>
     </>
