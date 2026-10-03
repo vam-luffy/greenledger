@@ -133,7 +133,7 @@ async function main() {
       if (c.decide !== null) {
         await program.methods
           .verifyClaim(c.decide, c.note)
-          .accounts({ supplier: sPda, claim: pda.claim(sPda, i), verifierAuthority: verifier.publicKey })
+          .accountsPartial({ supplier: sPda, claim: pda.claim(sPda, i), verifierAuthority: verifier.publicKey })
           .signers([verifier])
           .rpc();
         console.log(`  claim #${i} ${c.decide ? "verified" : "rejected"}`);

@@ -63,7 +63,7 @@ export default function VerifyPage() {
       const program = getProgram(connection, wallet);
       const sig = await program.methods
         .verifyClaim(approve, note.slice(0, 128))
-        .accounts({
+        .accountsPartial({
           supplier: claim.supplier,
           claim: claim.address,
           verifierAuthority: wallet.publicKey,

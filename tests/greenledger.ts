@@ -126,7 +126,7 @@ describe("greenledger", () => {
   it("verifier approves the claim", async () => {
     await program.methods
       .verifyClaim(true, "Matches BESCOM invoice, meter 4471-B")
-      .accounts({
+      .accountsPartial({
         supplier: supplierPda,
         claim: claimPda(0),
         verifierAuthority: verifierAuthority.publicKey,
@@ -144,7 +144,7 @@ describe("greenledger", () => {
     try {
       await program.methods
         .verifyClaim(false, "second attempt")
-        .accounts({
+        .accountsPartial({
           supplier: supplierPda,
           claim: claimPda(0),
           verifierAuthority: verifierAuthority.publicKey,
@@ -172,7 +172,7 @@ describe("greenledger", () => {
     try {
       await program.methods
         .verifyClaim(true, "")
-        .accounts({
+        .accountsPartial({
           supplier: supplierPda,
           claim: claimPda(1),
           verifierAuthority: stranger.publicKey,
@@ -194,7 +194,7 @@ describe("greenledger", () => {
     try {
       await program.methods
         .verifyClaim(true, "")
-        .accounts({
+        .accountsPartial({
           supplier: supplierPda,
           claim: claimPda(1),
           verifierAuthority: verifierAuthority.publicKey,
