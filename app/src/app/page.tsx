@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { LiveStats } from "@/components/LiveStats";
 
 const steps = [
   {
@@ -48,6 +49,8 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        <LiveStats />
 
         <section className="grid gap-6 sm:grid-cols-3">
           {steps.map((s, i) => (
