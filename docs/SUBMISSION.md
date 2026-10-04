@@ -13,7 +13,7 @@ Verifiable ESG and carbon attestations for Indian MSMEs: record a claim once on 
 - GitHub (public, MIT): https://github.com/vam-luffy/greenledger
 - Program ID (devnet): Hd8P3F7NAnFA6KtYnWZzcfF6LSUMAN6khGXP7Z9kELaB
 - Demo supplier record: https://greenledger-drab.vercel.app/s/5kw97yVqdh9er9QaPHqpbe4s6EXCJbkpZ7rm5evzJQ8M
-- Pitch video: (YouTube unlisted link, to add) · direct MP4: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-pitch.mp4
+- Pitch video (1:52 cut, under the 2-minute cap): https://youtu.be/8JmU2u7cafk (unlisted) · direct MP4: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-pitch-short.mp4 · long 2:35 version: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-pitch.mp4
 - Demo video: https://youtu.be/rFPWBx_AtOs (unlisted) · direct MP4: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-demo.mp4
 
 ## Blockchains and tools integrated
