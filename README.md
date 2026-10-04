@@ -64,9 +64,10 @@ cd app && npm install && npm run dev
 
 The app defaults to devnet. Set `NEXT_PUBLIC_SOLANA_RPC` to point elsewhere.
 
-## Devnet deployment
+## Live
 
-Program ID: `Hd8P3F7NAnFA6KtYnWZzcfF6LSUMAN6khGXP7Z9kELaB`
+- App: https://greenledger-drab.vercel.app (Solana devnet)
+- Program ID: `Hd8P3F7NAnFA6KtYnWZzcfF6LSUMAN6khGXP7Z9kELaB`
 
 ## License
 
