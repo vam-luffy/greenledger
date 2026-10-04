@@ -14,7 +14,7 @@ Verifiable ESG and carbon attestations for Indian MSMEs: record a claim once on 
 - Program ID (devnet): Hd8P3F7NAnFA6KtYnWZzcfF6LSUMAN6khGXP7Z9kELaB
 - Demo supplier record: https://greenledger-drab.vercel.app/s/5kw97yVqdh9er9QaPHqpbe4s6EXCJbkpZ7rm5evzJQ8M
 - Pitch video: (YouTube unlisted link, to add) · direct MP4: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-pitch.mp4
-- Demo video: (YouTube unlisted link, to add) · direct MP4: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-demo.mp4
+- Demo video: https://youtu.be/rFPWBx_AtOs (unlisted) · direct MP4: https://kce2snjsd9zyaalt.public.blob.vercel-storage.com/videos/GreenLedger-demo.mp4
 
 ## Blockchains and tools integrated
 Solana (Anchor 1.2 program, program-derived accounts, events), Solana wallet adapter (Phantom, Solflare, Backpack via Wallet Standard), Next.js 16, Vercel Blob for evidence storage.
