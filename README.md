@@ -30,8 +30,9 @@ Accounts are program-derived addresses:
 |---|---|---|
 | `/supplier` | Supplier (wallet) | Register with GSTIN, record claims with hashed evidence, see own claims |
 | `/verify` | Verifier (wallet) | Queue of pending claims across all suppliers, approve or reject with a note |
-| `/buyer` | Procurement team | Watchlist of suppliers, compliance summary, BRSR CSV export of every claim |
-| `/s/[address]` | Anyone | Public supplier record with QR code, share link, attestation summary, CSV export |
+| `/buyer` | Procurement team | Watchlist of suppliers, compliance summary, BRSR Core export per supplier or for the whole watchlist, raw claims CSV |
+| `/s/[address]` | Anyone | Public supplier record with QR code, share link, attestation summary, BRSR Core and raw claims CSV export |
+| `/s/[address]/brsr` | Anyone | Printable BRSR Core report: verified figures per period mapped to SEBI attributes, each linked to its Solana account |
 | `/verifiers` | Anyone | Registry of accredited verifiers and their attestation counts |
 | `/lookup` | Anyone | Find a supplier by wallet, record address, or GSTIN |
 

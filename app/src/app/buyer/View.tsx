@@ -17,6 +17,7 @@ import {
   type SupplierRecord,
 } from "@/lib/fetch";
 import { claimsToCsv, downloadText } from "@/lib/csv";
+import { brsrCsvFor, brsrFilename } from "@/lib/brsrClaims";
 import { formatDate } from "@/lib/program";
 
 const STORAGE_KEY = "greenledger.watchlist";
@@ -111,6 +112,14 @@ export default function BuyerView() {
     downloadText("greenledger-supply-chain.csv", claimsToCsv(flat));
   }
 
+  function exportBrsrAll() {
+    downloadText(brsrFilename(null), brsrCsvFor(rows), "text/csv;charset=utf-8");
+  }
+
+  function exportBrsrOne(r: Row) {
+    downloadText(brsrFilename(r.supplier.gstin), brsrCsvFor([r]), "text/csv;charset=utf-8");
+  }
+
   const totals = rows.reduce(
     (acc, r) => ({
       claims: acc.claims + r.summary.total,
@@ -183,7 +192,9 @@ export default function BuyerView() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map(({ supplier: s, summary: m }) => (
+                  {rows.map((r) => {
+                    const { supplier: s, summary: m } = r;
+                    return (
                     <tr key={s.address.toBase58()} className="border-b border-zinc-100 dark:border-zinc-800/60">
                       <td className="py-3 pr-4">
                         <Link href={`/s/${s.address.toBase58()}`} className="font-medium underline-offset-2 hover:underline">
@@ -206,17 +217,29 @@ export default function BuyerView() {
                       </td>
                       <td className="py-3 pr-4 text-xs">{m.lastVerified ? formatDate(m.lastVerified) : "-"}</td>
                       <td className="py-3 text-right">
-                        <button onClick={() => remove(s.address.toBase58())} className="text-xs text-zinc-500 hover:underline">
-                          Remove
-                        </button>
+                        <div className="flex flex-col items-end gap-1 text-xs">
+                          <Link href={`/s/${s.address.toBase58()}/brsr`} className="whitespace-nowrap text-emerald-700 hover:underline dark:text-emerald-400">
+                            BRSR Core report
+                          </Link>
+                          <button onClick={() => exportBrsrOne(r)} disabled={r.claims.length === 0} className="whitespace-nowrap text-emerald-700 hover:underline disabled:opacity-40 dark:text-emerald-400">
+                            BRSR Core CSV
+                          </button>
+                          <button onClick={() => remove(s.address.toBase58())} className="text-zinc-500 hover:underline">
+                            Remove
+                          </button>
+                        </div>
                       </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
-              <div className="mt-4">
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button onClick={exportBrsrAll} className="rounded-md border border-emerald-600 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-900 hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-950 dark:text-emerald-100 dark:hover:bg-emerald-900">
+                  Export BRSR Core (whole watchlist)
+                </button>
                 <button onClick={exportAll} className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900">
-                  Export all claims as BRSR CSV
+                  Export raw claims CSV
                 </button>
               </div>
             </div>

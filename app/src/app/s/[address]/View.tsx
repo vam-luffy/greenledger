@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
+import Link from "next/link";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { QRCodeSVG } from "qrcode.react";
@@ -9,6 +10,7 @@ import { ClaimTable, type ClaimRow } from "@/components/ClaimTable";
 import { Card, Notice, Stat, inputCls } from "@/components/ui";
 import { fetchClaims, fetchSupplier, summarize, type SupplierRecord } from "@/lib/fetch";
 import { claimsToCsv, downloadText } from "@/lib/csv";
+import { brsrCsvFor, brsrFilename } from "@/lib/brsrClaims";
 import { explorerUrl, formatDate, hexOf, kindLabel, sha256File, statusKey } from "@/lib/program";
 
 export default function SupplierRecordView({ params }: { params: Promise<{ address: string }> }) {
@@ -45,6 +47,11 @@ export default function SupplierRecordView({ params }: { params: Promise<{ addre
     );
   }
 
+  function exportBrsr() {
+    if (!supplier) return;
+    downloadText(brsrFilename(supplier.gstin), brsrCsvFor([{ supplier, claims }]), "text/csv;charset=utf-8");
+  }
+
   async function copyLink() {
     await navigator.clipboard.writeText(pageUrl);
     setCopied(true);
@@ -79,8 +86,14 @@ export default function SupplierRecordView({ params }: { params: Promise<{ addre
                     {copied ? "Copied" : "Copy share link"}
                   </button>
                   <button onClick={exportCsv} disabled={claims.length === 0} className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-100 disabled:opacity-40 dark:border-zinc-700 dark:hover:bg-zinc-900">
-                    Export BRSR CSV
+                    Export raw claims CSV
                   </button>
+                  <button onClick={exportBrsr} disabled={claims.length === 0} className="rounded-md border border-emerald-600 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-900 hover:bg-emerald-100 disabled:opacity-40 dark:border-emerald-700 dark:bg-emerald-950 dark:text-emerald-100 dark:hover:bg-emerald-900">
+                    Export BRSR Core CSV
+                  </button>
+                  <Link href={`/s/${address}/brsr`} className="rounded-md border border-emerald-600 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-900 hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-950 dark:text-emerald-100 dark:hover:bg-emerald-900">
+                    BRSR Core report
+                  </Link>
                 </div>
               </div>
               <div className="flex flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">

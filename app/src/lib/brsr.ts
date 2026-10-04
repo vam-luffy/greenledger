@@ -68,6 +68,17 @@ export const BRSR_METRICS: Record<BrsrMetricKey, MetricDef> = {
   wasteDiverted: { attribute: 4, label: "Waste recovered through recycling, re-using or other recovery", unit: "t" },
 };
 
+/** Human labels for claim kinds (mirrors CLAIM_KINDS in program.ts, kept here so this module stays pure). */
+export const KIND_LABELS: Record<string, string> = {
+  energyConsumption: "Energy consumption",
+  scope1Emissions: "Scope 1 emissions",
+  scope2Emissions: "Scope 2 emissions",
+  renewableCertificate: "Renewable energy certificate",
+  waterUsage: "Water usage",
+  wasteDiverted: "Waste diverted from landfill",
+};
+export const kindName = (kind: string) => KIND_LABELS[kind] ?? kind;
+
 /** Which headline metric a single claim kind feeds. */
 const KIND_TO_METRIC: Record<string, BrsrMetricKey> = {
   scope1Emissions: "scope1",
@@ -385,7 +396,7 @@ export function brsrRows(report: BrsrReport): string[][] {
         ...head,
         x.attribute === null ? "" : String(x.attribute),
         x.attributeName,
-        x.kind,
+        `${kindName(x.kind)} (claim not counted)`,
         String(x.quantity),
         x.unit,
         "",

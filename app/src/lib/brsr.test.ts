@@ -116,7 +116,7 @@ describe("demo supplier mapping (Shakti Textiles)", () => {
     const csv = brsrToCsv([report]);
     expect(csv.startsWith("﻿supplier_name,gstin")).toBe(true);
     expect(csv).toContain("Total energy consumed,173.7,GJ,48250,kWh,yes,Verified");
-    expect(csv).toContain(",no,Rejected,");
+    expect(csv).toContain("Renewable energy certificate (claim not counted),12000,MWh,,,no,Rejected,");
     expect(csv).toContain(",no,Pending,");
   });
 });
