@@ -19,7 +19,7 @@ const solana: Card[] = [
   },
   {
     stat: <Counter to={300} suffix=" ms" />,
-    label: "slot time",
+    label: "slot target",
     body: "A verifier's signature lands in under a second, timestamped by the chain itself.",
   },
   {
