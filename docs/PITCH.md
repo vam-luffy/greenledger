@@ -8,13 +8,13 @@ Verifiable ESG and carbon attestations for Indian MSMEs, anchored on Solana, so 
 
 ## Problem
 
-India has about 63 million MSMEs. The top 1,000 listed companies must file Business Responsibility and Sustainability Reports (BRSR), and since FY2025 the largest must get value-chain ESG data assured. Every large buyer now sends its suppliers a different ESG questionnaire. European buyers add CSRD and CBAM demands on top.
+India has about 63 million MSMEs. The top 1,000 listed companies must file Business Responsibility and Sustainability Reports (BRSR), and since FY2025-26 the largest can report value-chain ESG data, with assessment or assurance from FY2026-27. Every large buyer now sends its suppliers a different ESG questionnaire. European buyers add CSRD and CBAM demands on top.
 
 A supplier with 40 customers fills 40 spreadsheets, attaches the same electricity bills 40 times, and nobody can check any of it. Buyers either trust unverified numbers or pay an auditor per supplier per year. Verification costs land on the party least able to pay.
 
 ## What GreenLedger does
 
-1. A supplier registers once with its GSTIN and records claims: energy use, Scope 1 and 2 emissions, renewable energy certificates, water, waste. Each claim stores a reporting period, a quantity, and the SHA-256 hash of the evidence document. The document itself stays private.
+1. A supplier registers once with its GSTIN and records claims: energy use, Scope 1 and 2 emissions, renewable energy certificates, water, waste. Each claim stores a reporting period, a quantity, and the SHA-256 hash of the evidence document. The document can stay private with the supplier, or be stored so verifiers can open it.
 2. An accredited verifier reviews the evidence and signs an on-chain approval or rejection with a note. Verifiers are approved by the registry and can be suspended.
 3. Any buyer looks up a supplier by wallet or GSTIN and sees every claim, its status, who attested it, and when. No account needed to read.
 
@@ -22,20 +22,20 @@ One attestation serves every buyer. The hash proves the document the verifier sa
 
 ## Why Solana
 
-- Attestation cost is a fraction of a rupee, so even a micro-enterprise with four claims a year is viable.
+- A claim costs under ₹30 all in (mostly the account deposit) and a verifier signature about five paise, so even a micro-enterprise with four claims a year is viable.
 - Verifier signatures and timestamps are public and cannot be edited after the fact, which is what assurance providers and auditors actually need.
 - Program-derived addresses give every supplier a deterministic public record address derived from its wallet.
 - Composable: a lender or a carbon-credit issuer can read verified claims directly without an API agreement.
 
 ## Why now
 
-- SEBI's BRSR Core assurance requirement is phasing in for value-chain partners through FY2026 to FY2027.
+- SEBI's March 2025 circular lets the top 250 listed companies report value-chain ESG data under BRSR from FY2025-26, with assessment or assurance from FY2026-27, and BRSR Core assurance reaches the top 1,000 listed companies in FY2026-27.
 - CSRD reporting began for large EU companies in 2025, and CBAM moved to its definitive phase in January 2026, both pushing data requests down to Indian exporters.
 - Solana now has the wallet UX and fee profile to put an MSME owner on-chain without them knowing it.
 
 ## Market
 
-- Bottom-up: 1.5 million Indian MSMEs supply listed companies or exporters. At four verified claims a year and a 100 rupee platform fee per verified claim, that is 60 crore rupees (about USD 7 million) in annual platform revenue before verifier fees.
+- Bottom-up: India has about 1.7 lakh exporting MSMEs (PIB, FY2024-25) plus the domestic suppliers of the top 1,000 listed companies. On exporters alone, four verified claims a year at a 100 rupee platform fee is about 7 crore rupees (about USD 0.8 million) a year; the listed-company supply chain is the larger, less quantified upside.
 - Verification market: assurance of BRSR Core alone is estimated at several hundred crore rupees a year in India. GreenLedger reduces per-supplier verification cost by letting one attestation be reused.
 - Expansion: the same primitive works for any buyer-driven compliance data, such as labour audits and quality certifications.
 

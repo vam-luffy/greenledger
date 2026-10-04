@@ -12,7 +12,7 @@ const steps = [
   {
     k: "01",
     title: "Supplier records a claim",
-    body: "Energy, Scope 1 and 2 emissions, renewable certificates, water, waste. The evidence document is hashed with SHA-256 and only the hash goes on-chain.",
+    body: "Energy, Scope 1 and 2 emissions, renewable certificates, water, waste. The evidence document is hashed with SHA-256; the hash is anchored on-chain, and the file can be kept private or stored for verifiers.",
   },
   {
     k: "02",

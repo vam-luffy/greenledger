@@ -15,16 +15,16 @@ const solana: Card[] = [
   {
     stat: <Counter to={5000} suffix="" />,
     label: "lamports base fee per signature",
-    body: "A fraction of a rupee per attestation, so a micro-enterprise filing four claims a year is viable.",
+    body: "Under ₹30 per claim all in, and about five paise for the verifier's signature, so a micro-enterprise filing four claims a year is viable.",
   },
   {
-    stat: <Counter to={400} suffix=" ms" />,
+    stat: <Counter to={300} suffix=" ms" />,
     label: "slot time",
     body: "A verifier's signature lands in under a second, timestamped by the chain itself.",
   },
   {
     stat: <Counter from={40} to={1} suffix=" link" duration={2} />,
-    label: "replaces 40 questionnaires",
+    label: "replaces a questionnaire per buyer",
     body: "One program-derived address per supplier: a deterministic public record any buyer can open.",
   },
   {
@@ -38,7 +38,7 @@ const now: Card[] = [
   {
     stat: <Counter to={1000} />,
     label: "listed companies under BRSR",
-    body: "SEBI's BRSR Core assurance phases in for value-chain partners through FY2026 to FY2027.",
+    body: "Top 250 listed companies can now report value-chain ESG data under BRSR, voluntary from FY2025-26 with assessment or assurance from FY2026-27, and BRSR Core assurance reaches the top 1,000 in FY2026-27.",
   },
   {
     stat: <Counter from={2005} to={2025} grouping={false} />,
