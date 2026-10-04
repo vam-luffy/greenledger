@@ -55,13 +55,13 @@ One attestation serves every buyer. The hash proves the document the verifier sa
 ## Hackathon build (14 Sep to 12 Oct 2026)
 
 - Anchor program with registry, supplier, verifier, and claim accounts, deployed on devnet.
-- Next.js app: supplier console, verifier console, public lookup.
+- Next.js app: supplier console with evidence upload, verifier console, buyer dashboard, public supplier pages with QR and document check.
 - Integration tests covering the happy path and the access-control failures.
 - Seed script with realistic demo data.
 
 ## Roadmap after the hackathon
 
-- Evidence storage on Arweave or IPFS with encrypted access for verifiers.
+- Encrypted evidence storage with verifier-only access (plain storage is live today).
 - Verifier staking and slashing for bad attestations.
 - Export verified claims to BRSR Core and CSRD ESRS formats.
 - Lender integration: green working-capital loans priced on verified claims.

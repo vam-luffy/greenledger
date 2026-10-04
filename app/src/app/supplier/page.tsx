@@ -13,6 +13,7 @@ import {
   getProgram,
   getReadonlyProgram,
   pda,
+  hexOf,
   sha256File,
   type ClaimKindKey,
 } from "@/lib/program";
@@ -99,6 +100,22 @@ export default function SupplierPage() {
       const file = fd.get("evidence") as File | null;
       if (!file || file.size === 0) throw new Error("Attach an evidence document");
       const hash = await sha256File(file);
+      const hashHex = hexOf(hash);
+
+      // Optionally store the document so verifiers can fetch it. The server
+      // returns its own SHA-256; we refuse to continue if it differs from ours.
+      let uri = String(fd.get("uri") ?? "").trim();
+      if (fd.get("store") === "on" && !uri) {
+        const body = new FormData();
+        body.append("file", file);
+        body.append("owner", wallet.publicKey.toBase58());
+        const res = await fetch("/api/evidence", { method: "POST", body });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error ?? "Evidence upload failed");
+        if (json.sha256 !== hashHex) throw new Error("Stored file hash does not match local hash");
+        uri = json.url;
+      }
+      if (uri.length > 128) throw new Error("Evidence link is too long (max 128 characters)");
       const start = Math.floor(new Date(String(fd.get("start"))).getTime() / 1000);
       const end = Math.floor(new Date(String(fd.get("end"))).getTime() / 1000);
       const value = Math.round(Number(fd.get("value")) * SCALE);
@@ -112,7 +129,7 @@ export default function SupplierPage() {
           new BN(value),
           kind.unit,
           hash,
-          String(fd.get("uri") ?? "")
+          uri
         )
         .accounts({ owner: wallet.publicKey })
         .rpc();
@@ -191,10 +208,20 @@ export default function SupplierPage() {
                   <span className="font-medium">Evidence document</span>
                   <input name="evidence" type="file" required className={inputCls} />
                   <span className="text-xs text-zinc-500">
-                    Only the SHA-256 hash goes on-chain. The file stays with you.
+                    The SHA-256 hash goes on-chain. The file itself goes only where you choose below.
                   </span>
                 </label>
-                <Field label="Evidence link (optional)" name="uri" placeholder="https://drive.google.com/…" maxLength={128} className="sm:col-span-2" />
+                <label className="flex items-start gap-2 text-sm sm:col-span-2">
+                  <input name="store" type="checkbox" defaultChecked className="mt-1" />
+                  <span>
+                    Store the document so verifiers can open it
+                    <span className="block text-xs text-zinc-500">
+                      Uploaded to GreenLedger evidence storage and linked from the claim. Untick to keep it private and
+                      share it with the verifier yourself.
+                    </span>
+                  </span>
+                </label>
+                <Field label="Or link to a document you host (optional)" name="uri" placeholder="https://drive.google.com/…" maxLength={128} className="sm:col-span-2" />
                 <div>
                   <Button disabled={loading}>{loading ? "Submitting…" : "Submit claim"}</Button>
                 </div>
