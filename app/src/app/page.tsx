@@ -12,7 +12,7 @@ import { WhySection } from "@/components/landing/WhySection";
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col font-[family-name:var(--font-geist-sans)]">
-      <Header />
+      <Header sticky={false} />
       <MotionProvider>
         {/* overflow-x-clip (not hidden) keeps position: sticky working for the pinned section */}
         <main className="flex-1 overflow-x-clip">

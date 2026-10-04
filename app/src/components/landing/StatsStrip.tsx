@@ -37,6 +37,23 @@ export function StatsStrip({ children }: { children: React.ReactNode }) {
           Reading the registry from devnet&hellip;
         </p>
         {children}
+        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-zinc-200/70 pt-4 text-sm dark:border-zinc-800">
+          <span className="mr-1 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Try it</span>
+          {[
+            { href: "/s/5kw97yVqdh9er9QaPHqpbe4s6EXCJbkpZ7rm5evzJQ8M", label: "Open a verified supplier record" },
+            { href: "/buyer", label: "Buyer dashboard" },
+            { href: "/verifiers", label: "Verifier registry" },
+            { href: "/supplier", label: "Record your own claim" },
+          ].map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-medium hover:border-emerald-500 hover:text-emerald-700 dark:border-zinc-700 dark:hover:text-emerald-300"
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
       </motion.div>
     </section>
   );

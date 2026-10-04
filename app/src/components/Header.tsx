@@ -18,9 +18,13 @@ const nav = [
   { href: "/lookup", label: "Lookup" },
 ];
 
-export function Header() {
+export function Header({ sticky = true }: { sticky?: boolean }) {
   return (
-    <header className="w-full border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
+    <header
+      className={`w-full border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80 ${
+        sticky ? "sticky top-0 z-40" : ""
+      }`}
+    >
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
