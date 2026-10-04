@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { LiveStats } from "@/components/LiveStats";
+import { LiveStatsLazy } from "@/components/LiveStatsLazy";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { Footer } from "@/components/landing/Footer";
 import { Hero } from "@/components/landing/Hero";
@@ -18,7 +18,7 @@ export default function Home() {
         <main className="flex-1 overflow-x-clip">
           <Hero />
           <StatsStrip>
-            <LiveStats />
+            <LiveStatsLazy />
           </StatsStrip>
           <HowItWorks />
           <WhySection />
