@@ -25,7 +25,7 @@ function LookupInner() {
   const router = useRouter();
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [supplier, setSupplier] = useState<SupplierView | null>(null);
-  const [claims, setClaims] = useState<ClaimRow[]>([]);
+  const [claims, setClaims] = useState<ClaimRow[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ function LookupInner() {
       setLoading(true);
       setError(null);
       setSupplier(null);
-      setClaims([]);
+      setClaims(null);
       try {
         let supplierPda: PublicKey | null = null;
         const trimmed = q.trim();
@@ -125,7 +125,11 @@ function LookupInner() {
             </p>
           </Card>
           <Card title="Claims">
-            <ClaimTable claims={claims} emptyText="This supplier has not recorded any claims." />
+            {claims === null ? (
+              <p className="text-sm text-zinc-500">Loading claims from devnet…</p>
+            ) : (
+              <ClaimTable claims={claims} emptyText="This supplier has not recorded any claims." />
+            )}
           </Card>
         </>
       )}

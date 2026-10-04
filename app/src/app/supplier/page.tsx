@@ -32,7 +32,7 @@ export default function SupplierPage() {
   const { publicKey } = useWallet();
 
   const [supplier, setSupplier] = useState<SupplierAccount | null>(null);
-  const [claims, setClaims] = useState<ClaimRow[]>([]);
+  const [claims, setClaims] = useState<ClaimRow[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ message: string; sig: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -229,7 +229,11 @@ export default function SupplierPage() {
             </Card>
 
             <Card title="Your claims">
-              <ClaimTable claims={claims} emptyText="No claims yet." />
+              {claims === null ? (
+                <p className="text-sm text-zinc-500">Loading claims from devnet…</p>
+              ) : (
+                <ClaimTable claims={claims} emptyText="No claims yet." />
+              )}
             </Card>
           </>
         )}

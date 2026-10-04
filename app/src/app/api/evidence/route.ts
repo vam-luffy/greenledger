@@ -26,8 +26,12 @@ export async function POST(req: Request) {
   }
   const bytes = Buffer.from(await file.arrayBuffer());
   const sha256 = createHash("sha256").update(bytes).digest("hex");
-  const safeName = file.name.replace(/[^\w.-]+/g, "_").slice(0, 80);
-  const blob = await put(`evidence/${owner}/${sha256.slice(0, 16)}-${safeName}`, bytes, {
+  // The on-chain claim stores the URL in a 128-byte field, so keep the path short:
+  // base URL (~55) + "e/" + 16 hex + "-" + name (<=24) + ext stays under 110.
+  const ext = (file.name.match(/\.[A-Za-z0-9]{1,5}$/)?.[0] ?? "").toLowerCase();
+  const stem = file.name.replace(/\.[A-Za-z0-9]{1,5}$/, "").replace(/[^\w-]+/g, "_").slice(0, 24);
+  void owner; // kept in the form for audit logs later; not part of the path
+  const blob = await put(`e/${sha256.slice(0, 16)}-${stem}${ext}`, bytes, {
     access: "public",
     contentType: file.type || "application/octet-stream",
     addRandomSuffix: false,
